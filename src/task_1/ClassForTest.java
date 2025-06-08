@@ -1,4 +1,6 @@
-import annotation.*;
+package task_1;
+
+import task_1.annotations.*;
 
 public class ClassForTest {
     @Test(priority = 9)
