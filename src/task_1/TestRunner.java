@@ -25,25 +25,25 @@ public class TestRunner {
         //Основные проверки и заполнение переменных
         for (Method method : methods) {
             if (method.isAnnotationPresent(BeforeSuite.class)) {
-                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией task_1.annotation.BeforeSuite должен быть статическим");
+                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией BeforeSuite должен быть статическим");
                 if (beforeSuite == null) beforeSuite = method;
-                else throw new RuntimeException("Методов с аннотацией task_1.annotation.BeforeSuite не может быть больше 1");
+                else throw new RuntimeException("Методов с аннотацией BeforeSuite не может быть больше 1");
             }
             if (method.isAnnotationPresent(AfterSuite.class)) {
-                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией task_1.annotation.AfterSuite должен быть статическим");
+                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией AfterSuite должен быть статическим");
                 if (afterSuite == null) afterSuite = method;
-                else throw new RuntimeException("Методов с аннотацией task_1.annotation.AfterSuite не может быть больше 1");
+                else throw new RuntimeException("Методов с аннотацией AfterSuite не может быть больше 1");
             }
             if (method.isAnnotationPresent(Test.class)) {
-                if (isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией task_1.annotation.Test НЕ должен быть статическим");
-                if (!validPriorityAnnotation(method.getAnnotation(Test.class).priority())) throw new RuntimeException("Приоритет аннотации task_1.annotation.Test должен быть в пределах от 1 до 10 включительно");
+                if (isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией Test НЕ должен быть статическим");
+                if (!validPriorityAnnotation(method.getAnnotation(Test.class).priority())) throw new RuntimeException("Приоритет аннотации Test должен быть в пределах от 1 до 10 включительно");
             }
             if (method.isAnnotationPresent(BeforeTest.class)) {
-                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией task_1.annotation.BeforeTest должен быть статическим");
+                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией BeforeTest должен быть статическим");
                 beforeTest.add(method);
             }
             if (method.isAnnotationPresent(AfterTest.class)) {
-                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией task_1.annotation.AfterTest должен быть статическим");
+                if (!isStaticMethod(method)) throw new RuntimeException("Метод с аннотацией AfterTest должен быть статическим");
                 afterTest.add(method);
             }
         }
@@ -57,7 +57,7 @@ public class TestRunner {
         if (beforeSuite != null) startMethod(beforeSuite, null, null);
 
         Arrays.stream(methods).filter(m -> m.isAnnotationPresent(Test.class))
-                //.sorted(Comparator.comparingInt(m -> m.getAnnotation(task_1.annotation.Test.class).priority())) //если больший приоритет 1
+                //.sorted(Comparator.comparingInt(m -> m.getAnnotation(Test.class).priority())) //если больший приоритет 1
                  .sorted((m1, m2) -> (m2.getAnnotation(Test.class).priority() - m1.getAnnotation(Test.class).priority())) //если больший приоритет 10
                 .forEach(m -> {
                     System.out.println("________");
