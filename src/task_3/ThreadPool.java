@@ -40,7 +40,9 @@ public class ThreadPool {
     }
 
     public boolean isShutdown() {
-        return isShutdown;
+        synchronized (tasks) {
+            return isShutdown;
+        }
     }
 
     private void awaitTermination() throws InterruptedException{
